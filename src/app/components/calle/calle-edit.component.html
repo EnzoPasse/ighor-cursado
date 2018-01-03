@@ -1,0 +1,200 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <form #provinciaForm="ngForm" *ngIf="calleBarrio" (ngSubmit)="save(provinciaForm); provinciaForm.reset()" novalidate>
+      <div class="modal-header">
+        <h4 class="modal-title">{{title}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" data-dismiss="provinciaForm" (click)="hideChildModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body modal-body-scroller">
+
+        <div class="form-group row">
+          <div class="col">
+
+            <label class="col-form-label">
+             Provincia :
+          </label>
+            <br>
+            <i> {{calleBarrio.barrio.cuadrante.localidad.provincia?.nombre}} </i>
+          </div>
+
+
+          <div class="col">
+            <label class="col-form-label">
+            Localidad :
+          </label>
+            <br>
+            <i> {{calleBarrio.barrio.cuadrante.localidad?.nombre}} </i>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <div class="col">
+            <label class="col-form-label">
+             Sector :
+             </label>
+            <br>
+            <i> {{calleBarrio.barrio.cuadrante?.nombre}} </i>
+          </div>
+
+          <div class="col">
+            <label class="col-form-label">
+            Barrio :
+            </label>
+            <br>
+            <i> {{calleBarrio.barrio?.nombre}} </i>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body" style="padding: 10px 20px">
+
+            <!-- <div *ngIf="nueva" class="row">
+              <label class="col-form-label" for="calle" style="padding: 8px 18px"> Calle: </label>
+              <div class="col-md-12" name="calle">
+                <app-calleAutocomplete (bindModelCalleBarrioChange)="callechange($event)" ></app-calleAutocomplete>
+              </div>
+            </div> -->
+
+            <label class="col-form-label" for="callename" style="margin-left: 2px ; padding-bottom: 5px"> Calle: </label>
+
+            <div class="row" style="margin-left: 2px ; padding-bottom: 15px">
+              <ng2-completer style="width: 675px !important"
+                             [autofocus]="true" name="callename" #callename="ngModel"
+                             [datasource]="dataService" [(ngModel)]="calle"
+                             (selected)="onCalleBarrioSelected($event)"
+                             (blur)="onLoseFocus(callename.value)"
+                             [minSearchLength]="3"
+                             [initialValue]="calleBarrio.calle.nombre ? calleBarrio.calle.nombre : ' ' "
+                             [placeholder]="'Buscar calle...'"
+                             [textSearching]="'Espere por favor...'"
+                             [inputClass]="'form-control'"
+                             [textNoResults]="'DESCRIPCION INEXISTENTE, Se agregará como una NUEVA CALLE'"
+                             required>
+              </ng2-completer>
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button"><span class="fa fa-search"></span></button>
+              </span>
+            </div>
+
+
+            <div class="form-group row">
+              <div class="col">
+                <label class="col-form-label" for="nombre">
+                         Referencia :
+               </label>
+                <input type="text" class="form-control" #nombre="ngModel" name="nombre" placeholder="Nombre..." [(ngModel)]="calleBarrio.referencia" pattern=".{3,50}">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="btn-block" data-toggle="checkbox">
+                  <label style="width: 722px !important; margin-top: 15px; margin-bottom:15px" class="btn btn-secondary" [ngClass]="{'active': calleBarrio.noNomenclado == true}">
+                    <input
+                           type="checkbox"
+                           [checked]="noNomenclado"
+                           (change)="noNomenclado=!noNomenclado"
+                           [(ngModel)]="calleBarrio.noNomenclado" name="nomenclada"> Calle SIN Nomenclar
+                </label>
+                </div>
+              </div>
+            </div>
+
+
+            <div *ngIf="calleBarrio.noNomenclado != true">
+              <div class="form-group row">
+                <div class="col">
+                  <label class="col-form-label" for="desde">
+            Desde:
+          </label>
+                  <input type="text" name="desde" class="form-control" OnlyNumber="true" [(ngModel)]="calleBarrio.altura_desde" placeholder="Desde..">
+                </div>
+                <div class="col">
+                  <label class="col-form-label" for="hasta">
+            Hasta:
+          </label>
+                  <input type="text" name="hasta" class="form-control" OnlyNumber="true" [(ngModel)]="calleBarrio.altura_hasta" placeholder="Hasta..">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col">
+                  <label class="col-form-label" for="plano">
+                     Plano:
+                   </label>
+                  <input type="text" name="plano" class="form-control" [(ngModel)]="calleBarrio.plano" placeholder="Plano">
+                </div>
+                <div class="col">
+                  <label class="col-form-label" for="ubicacion">
+                    Ubicación:
+                  </label>
+                  <input type="text" name="ubicacion" class="form-control" [(ngModel)]="calleBarrio.ubicacion" placeholder="Ubicacion">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 offset-1">
+
+                <div class="btn-group" data-toggle="options">
+
+                  <label class="btn btn-secondary" [ngClass]="{'active': calleBarrio.tipo_numeracion =='0'}">
+                  <input  type="radio" name="options" checked autocomplete="off" [value]="0"
+                  [(ngModel)]="calleBarrio.tipo_numeracion" #options=ngModel
+                  ng-control ="options" required> Numeración Completa
+                </label>
+
+                  <label class="btn btn-secondary" [ngClass]="{'active': calleBarrio.tipo_numeracion =='1'}">
+                  <input  type="radio" name="options" autocomplete="off" [value]="1"
+                  [(ngModel)]="calleBarrio.tipo_numeracion"
+                  ng-control ="options" formaction=""> Numeración Impar
+                 </label>
+
+                  <label class="btn btn-secondary" [ngClass]="{'active': calleBarrio.tipo_numeracion =='2'}">
+                   <input  type="radio" name="options" autocomplete="off" [value]="2"
+                   [(ngModel)]="calleBarrio.tipo_numeracion"
+                   ng-control ="options" > Numeración Par
+                  </label>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="alert alert-danger" [hidden]="provinciaForm.form.valid || !provinciaForm.form.dirty">
+              <ul *ngIf="!options.valid">
+                <li *ngIf="options.errors?.required">El tipo de Numeracion es requerida</li>
+                <!-- <li *ngIf="options.errors?.pattern">La descripcion debe entre 3 y 25 caracteres</li> -->
+              </ul>
+              <ul *ngIf="callename.touched && !callename.valid">
+                <li *ngIf="callename.errors?.required"> El descripcion de la calle es requerida</li>
+              </ul>
+            </div>
+
+            <!-- <pre>{{calleBarrio | json}}</pre> -->
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+
+
+
+        <button [disabled]="provinciaForm.invalid" type="submit" class="btn btn-outline-success">
+                <i class="fa fa-floppy-o fa-1x" aria-hidden="true"></i>
+                Guardar
+         </button>
+
+        <button type="button" class="btn btn-outline-danger" data-dismiss="provinciaForm" (click)="hideChildModal()">
+          <i class="fa fa-reply fa-1x" aria-hidden="true"></i>
+               Cancelar
+       </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

@@ -1,0 +1,64 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <a class="navbar-brand" href="#">
+     <img src="/assets/img/pAzul.jpg" width="50" height="50" alt="" class="img-fluid img-thumbnail">
+  </a>
+
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+    <ul class="navbar-nav">
+
+      <li class="nav-item btn-lg" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/home']">
+          <i class="fa fa-home fa-2x" aria-hidden="true" tooltip="Inicio" placement="top"></i>
+        </a>
+      </li>
+
+      <li class="nav-item btn-lg" routerLinkActive="active">
+        <a class="nav-link" href="#">
+          <i class="fa fa-users fa-2x"  aria-hidden="true" tooltip="Usuarios" placement="top"></i>
+        </a>
+      </li>
+
+      <li class="nav-item btn-lg" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/hojaDeRuta']">
+          <i class="fa fa-map-marker fa-2x" aria-hidden="true" tooltip="Hojas de Ruta" placement="top"></i>
+        </a>
+      </li>
+
+      <li class="nav-item dropdown btn-lg" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLinkNorma" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-gears fa-2x" aria-hidden="true" tooltip="Normalizacion" placement="top"></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkNorma">
+          <a class="dropdown-item" [routerLink]="['/normalizacionBarrio']">Normalizar Barrios</a>
+          <a class="dropdown-item" [routerLink]="['/normalizacionCalle']">Normalizar Calles</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown btn-lg" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-sitemap fa-2x" aria-hidden="true" tooltip="Estructura" placement="top"></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" [routerLink]="['/provincia']">Provincias</a>
+          <a class="dropdown-item" [routerLink]="['/localidad']">Localidades</a>
+          <a class="dropdown-item" [routerLink]="['/zona']">Sectores</a>
+          <a class="dropdown-item" [routerLink]="['/barrio']">Barrios</a>
+          <a class="dropdown-item" [routerLink]="['/calle']">Calles</a>
+        </div>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+
+<div class=" container main-container  ">
+  <router-outlet></router-outlet>
+</div>

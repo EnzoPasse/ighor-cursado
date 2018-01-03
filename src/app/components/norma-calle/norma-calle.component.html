@@ -1,0 +1,113 @@
+<div class="animated fadeIn fast">
+
+  <h2>Normalización: <small>Calles</small></h2>
+  <hr>
+
+
+  <div id="accordion1" role="tablist" aria-multiselectable="true">
+    <div class="card">
+      <div class="card-header" role="tab" id="headingOne1">
+        <h5 class="mb-0">
+            <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" (click)="isOpen = !isOpen" aria-expanded="true" aria-controls="collapseOne">
+              <i class="fa" [ngClass]="(isOpen)? 'fa-chevron-up ':'fa-chevron-down '"></i>
+                Calle <small *ngIf="calleSelected">: {{calleSelected.calle.nombre}}</small>
+            </a>
+          </h5>
+      </div>
+
+      <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1">
+        <div class="card-block">
+
+
+          <form class="col-md-12">
+            <div class="form-group  col-md-12">
+              <label for="combo" class="col-form-label">Provincia : </label>
+              <select class="form-control" id="combo" name="prov" #prov="ngModel" [(ngModel)]="provinciaSelected" (change)="onSelectProv(prov.value)">
+
+          <option *ngFor="let item of provincias"
+                   class="option"
+                   [class.selected]="item === provinciaSelected"
+                   [ngValue]="item">
+                   {{item.nombre}}
+         </option>
+       </select>
+            </div>
+
+            <div *ngIf="(loadingLocal === false && provinciaSelected != null)" class="text-center">Cargando...
+              <i class="fa fa-spinner fa-spin fa-3x " aria-hidden="true"></i>
+            </div>
+
+            <div *ngIf="(provinciaSelected != null && loadingLocal === true)">
+
+              <div class="form-group col-md-12">
+                <label for="local" class="col-form-label">Localidad : </label>
+                <select class="form-control" name="local" #local="ngModel" [(ngModel)]="localidadSelected" (change)="onSelectLocal(local.value)" id="local">
+
+            <option *ngFor="let item of localidades"
+                        [ngValue]="item"
+                        class="option"
+                        [class.selected]="item == localidadSelected">
+                            {{item.nombre | uppercase}}
+            </option>
+           </select>
+              </div>
+            </div>
+
+
+            <div *ngIf="(localidadSelected)">
+              <div class="form-group col-md-12">
+                <label for="cuadra" class="col-form-label">Sector : </label>
+                <select class="form-control" name="cuadra" #cuadra="ngModel" [(ngModel)]="cuadranteSelected" (change)="onSelectCuadrante(cuadra.value)" id="cuandra">
+
+        <option *ngFor="let item of cuadrantes"
+                [ngValue]="item"
+                class="option"
+                [class.selected]="item == cuadranteSelected">
+                {{item.nombre | uppercase}}
+        </option>
+      </select>
+              </div>
+            </div>
+
+
+            <div *ngIf="(cuadranteSelected)">
+              <div class="form-group col-md-12">
+                <label for="barrio" class="col-form-label">Barrio : </label>
+                <select class="form-control" name="barrio" #barrio="ngModel" [(ngModel)]="barrioSelected" (change)="onSelectBarrio(barrio.value)" id="barrio">
+
+        <option *ngFor="let item of barrios"
+                [ngValue]="item"
+                class="option"
+                [class.selected]="item == barrioSelected">
+                {{item.nombre | uppercase}}
+        </option>
+      </select>
+              </div>
+            </div>
+
+            <div *ngIf="(barrioSelected)">
+              <div class="form-group col-md-12">
+                <label for="calle" class="col-form-label">Calle : </label>
+                <select class="form-control" name="calle" #calle="ngModel" [(ngModel)]="calleSelected" (change)="onSelectCalle(calle.value)" id="calle">
+
+        <option *ngFor="let item of calles"
+                [ngValue]="item"
+                class="option"
+                [class.selected]="item == calleSelected">
+                {{item.calle.nombre | uppercase}}
+        </option>
+      </select>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="animated fadeIn fast" *ngIf="calleSelected">
+    <app-criterio-calle [calle]="calleSelected"></app-criterio-calle>
+  </div>

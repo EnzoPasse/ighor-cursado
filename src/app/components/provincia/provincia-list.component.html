@@ -1,0 +1,88 @@
+<div class="animated fadeIn fast">
+
+<h2>Provincias</h2>
+<hr>
+<!-- <form class="form-inline"> -->
+
+  <div style="display:inline">
+
+  <button type="button" (click)="addProvincia()" class="btn btn-outline-warning">
+              <i class="fa fa-plus fa-1x" aria-hidden="true"></i>
+              Nueva Provincia
+  </button>
+
+  <button class="btn btn-outline-primary pull-right" type="button" *ngIf="provincias">
+       <i class="fa fa-calendar" aria-hidden="true"></i> Total Provincias :
+      <span class="badge bg-primary"><strong>{{totalItems}} </strong></span>
+  </button>
+
+
+</div>
+
+<!-- </form> -->
+
+<hr>
+
+
+<div class="row">
+  <div class="col-md-12 ">
+
+    <!-- <header></header> -->
+
+    <div class="input-group">
+     <span class="input-group-btn">
+       <button class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
+     </span>
+     <input [hidden]="!provincias" type="text"  class="form-control" id="myInput" #filtro
+     (keyup)="filtrarTabla(filtro.value)" placeholder="Buscar por nombre..." aria-label="Buscar por nombre...">
+   </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead class="thead-inverse">
+          <tr>
+            <!-- <th class="text-center"><i class="fa fa-reorder fa-1x" aria-hidden="true"></i> Nro</th> -->
+            <!-- <th><i class="fa fa-key fa-1x" aria-hidden="true"></i> Id</th> -->
+            <th class="text-center" style="width: 70%"><i class="fa fa-file-text fa-1x" aria-hidden="true"></i> Nombre </th>
+            <th class="text-center"><i class="fa fa-ellipsis-h fa-1x" aria-hidden="true"></i> Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- <tr *ngFor="let item of (provincias | searchProvincia : searchService.searchText ) | paginate: {itemsPerPage: 5, currentPage:page, id: '1'} ;let i= index; let l = count "> -->
+          <tr *ngFor="let item of provinciasFiltradas | paginate: {itemsPerPage: 5, currentPage:page, id: '1'} ;let i= index; let l = count ">
+            <!-- provFiltradas -->
+            <!-- <td class="text-center">{{ i + 1 }}</td> -->
+            <!-- <td>{{ item.IdProvincia }}</td> -->
+            <td class="text-center">{{ item.nombre }}</td>
+            <td class="text-center">
+              <button type="button" (click)="updateProvincia(item)" class="btn btn-outline-success">
+                      <i class="fa fa-edit fa-1.5x" aria-hidden="true"></i>
+
+             </button>
+              <button type="button" class="btn btn-outline-danger" (click)="deleteProvincia(item)">
+                     <i class="fa fa-trash fa-1.5x" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <pagination-controls (pageChange)="page = $event" id="1" maxSize="5" directionLinks="true" autoHide="true" previousLabel="" nextLabel="">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <!-- Abrir el formulario en forma modal,pasarle datos "[]" y recibir datos "()" -->
+  <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <app-provincia-detalle
+                           [title]="(newProvincia) ? 'Nueva Provincia' : 'Editar Provincia'"
+                           [provinciaSelected]="provincia"
+                           (onClosed)="onEditClosed($event)"
+                           (onSaved)="onEditSaved($event)">
+    </app-provincia-detalle>
+  </div>
+
+
+</div>

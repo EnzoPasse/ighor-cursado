@@ -1,0 +1,192 @@
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"(click)="isOpen=!isOpen" aria-expanded="true" aria-controls="collapseOne">
+          <i class="fa" [ngClass]="(isOpen)? 'fa-chevron-up ':'fa-chevron-down '"></i>
+             Filtros - <small>Barrio: {{ barrio.nombre }}</small>
+        </a>
+      </h5>
+    </div>
+    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+      <div class="card-block" style="padding-bottom:2px">
+
+        <!-- <div class="alert  alert-success" role="alert"> -->
+        <div class="btn-group data" data-toggle="checkboxs">
+          <label class="btn btn-secondary form-check-label big-checkbox">
+          <input type="checkbox"  autocomplete="off" name="all" [(ngModel)]="listarTodo" (checked)="listarTodo = !listarTodo">
+          <!-- formControlName="all" -->
+        </label>
+        </div>
+        <strong>Incluir los barrios ya asociados.</strong>
+        <!-- </div> -->
+
+        <button (click)="agregarFiltro()" type="button" class="btn btn-outline-success pull-right">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          Nuevo Filtro
+        </button>
+
+        <br>
+        <br>
+
+        <form [formGroup]="forma" (ngSubmit)="guardarForm()" novalidate="novalidate">
+
+          <div formArrayName="filtro">
+
+            <div *ngFor="let item of forma.controls.filtro.controls ; let i=index" class="card" style="margin:2px;">
+
+              <div class="card-header" style="padding-bottom:5px">
+                <span>Filtro {{i+1}}</span>
+                <label class="form-check-label pull-right">
+                  <span class="fa fa-trash-o pull-right " *ngIf="forma.controls.filtro.controls.length > 0" (click)="removeFiltro(i)"></span>
+                </label>
+              </div>
+
+              <div class="card-block" style="padding-bottom:1px; margin-left:60px" [formGroupName]="i">
+                <div class="row">
+
+                  <div class="btn-group-xs" data-toggle="radios">
+                    <label class="btn btn-success ">
+                      <input type="radio" value="AND" checked="checked" formControlName="tipo">AND
+                    </label>
+                    <label class="btn btn-success ">
+                      <input type="radio"  value="OR" formControlName="tipo"> OR
+                    </label>
+                    <!-- <small [hidden]="forma.controls.filtro.controls[i].controls.tipo.valid" class="text-danger offset-1">
+                      es necesario
+                    </small> -->
+                  </div>
+
+
+                  <div class="form-group col-md-4">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                            <input type="checkbox" formControlName="openbrackets" #check id="check">
+                      </span>
+                      <span class="input-group-addon" style="color:green">(</span>
+                      <select class="form-control" formControlName="criterio">
+                    <option *ngFor="let item of claves" [value]="item.id" >{{item.valor}} </option>
+                  </select>
+                    </div>
+                    <small [hidden]="forma.controls.filtro.controls[i].controls.criterio.valid" class="text-danger offset-5">
+                  el citerio es necesario
+                </small>
+                  </div>
+
+                  <div class="form-group col-md-5">
+                    <div class="input-group">
+                      <!-- <label>Valor:</label> -->
+                      <input class="form-control form-control-sm" formControlName="valor" placeholder="valor...">
+                      <span class="input-group-addon" style="color:green">)</span>
+                      <span class="input-group-addon">
+                        <input type="checkbox" formControlName="closebrackets" #checkClo id="checkClo">
+                      </span>
+                    </div>
+                    <small [hidden]="forma.controls.filtro.controls[i].controls.valor.valid" class="text-danger offset-3">
+                  el valor es necesario
+                </small>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- <button [disabled]="(!forma.valid || filtro.length === 0)"
+                   type="submit"
+                   name="button"
+                   class="btn btn-primary">
+                   Listar
+         </button> -->
+
+          <!-- {{forma.valid}}
+      <pre>
+      {{forma.value | json}}
+    </pre> -->
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<!-- [disabled]="(!forma.valid || filtro.length === 0)" -->
+<div class="col-md-10 offset-1">
+  <button [hidden]="(!forma.valid || filtro.length === 0)" type="submit" name="button" class="btn btn-success btn-lg btn-block" (click)="guardarForm()">
+          Consultar Diccionario...
+   </button>
+</div>
+
+<br>
+
+<div class="animated fadeIn fast" *ngIf="listaMal">
+
+  <table class="table header-fixed  table-striped table-bordered table-responsive">
+    <thead class="table-inverse">
+      <tr>
+        <div class="text-center"style="height:40px;font-size:20px;">
+          <i class="fa fa-calendar" aria-hidden="true"></i> <b>Total de items : {{totalItems}}</b>
+        </div>
+      </tr>
+      <tr>
+        <th style="width: 60%"><i class="fa fa-reorder fa-1x" aria-hidden="true"></i> Barrios a Asociar</th>
+        <th style="width: 20%"><i class="fa fa-database fa-1x" aria-hidden="true"></i> Asociado a:</th>
+        <th style="width: 20%">
+          <label class="form-check-label">
+             <input type="checkbox" (click)="checkAll()"(change)="selectAll = !selectAll"> Seleccionar Todos
+        </label>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaMal">
+        <td style="width: 60%">{{ item.BarrioMal }}</td>
+        <td style="width: 20%">
+          <div class="text-center">
+            {{ item.barrio? item.barrio : '-' }}
+          </div>
+        </td>
+        <td style="width: 20%">
+          <div class="text-center">
+            <label class=" form-check-label big-checkbox">
+             <input type="checkbox"  name="selected" [checked]= "existe(item.Id)" (click)="toggleSelection(item.Id)">
+         </label>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="listaMal.length===0">
+        <div class="alert alert-success text-center" role="alert">
+          <strong>No</strong> hay Registros para mostrar.<br>
+          <strong>Por favor</strong> verifique los filtros de la consulta!
+        </div>
+
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- <div class="pull-right">
+    <i class="fa fa-calendar" aria-hidden="true"></i> Total de items :{{totalItems}}
+  </div> -->
+
+  <!-- <div class="pull-left">
+    <button class="btn btn-primary btn-block" type="button">
+       <i class="fa fa-calendar" aria-hidden="true"></i> Total de items :
+      <span class="badge"><strong>{{totalItems}}</strong></span> Total de Seleccionados :
+      <span class="badge bg-warning"><strong>{{selected.length}}</strong></span>
+  </button>
+  </div> -->
+  <!-- Total de items {{totalItems}} -->
+  <br>
+
+  <div class="col-md-10 offset-1" *ngIf="selected.length > 0">
+    <button type="button" class="btn btn-primary btn-lg btn-block" (click)="normalizar()">
+     NORMALIZAR <span>{{selected.length}} items seleccionados </span>
+   </button>
+  </div>
+  <br>
+  <br>
+</div>

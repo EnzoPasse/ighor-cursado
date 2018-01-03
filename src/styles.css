@@ -1,1 +1,298 @@
 /* You can add global styles to this file, and also import other style files */
+
+.completer-dropdown {
+  width: 668px !important;
+}
+
+.completer-no-results {
+  background-color: lightblue;
+  color: #ffffff;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #42A948;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.a.dropdown-item {
+  background-color: #42A948;
+  color: #42A948;
+}
+
+.col-form-label {
+  font-weight: 600;
+}
+
+.modal {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.6);
+  margin-top: 100px;
+}
+
+
+/*.modal {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+
+.modal{
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+
+.fade.in {
+    opacity: 1;
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 10px;
+}
+
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    -o-transform: translate(0,0);
+    transform: translate(0,0);
+}
+
+.modal.fade .modal-dialog {
+    -webkit-transition: -webkit-transform .3s ease-out;
+    -o-transition: -o-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    -webkit-transform: translate(0,-25%);
+    -ms-transform: translate(0,-25%);
+    -o-transform: translate(0,-25%);
+    transform: translate(0,-25%);
+}
+
+@media (min-width: 768px) {
+    .modal-dialog {
+        width: 600px;
+        margin: 30px auto;
+    }
+}
+
+*/
+
+
+.big-checkbox>input {
+  width: 20px;
+  height: 20px;
+}
+
+.mio {
+  font-size-adjust: auto;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.header-fixed {
+  width: 100%
+}
+
+.header-fixed>thead, .header-fixed>tbody, .header-fixed>thead>tr, .header-fixed>tbody>tr, .header-fixed>thead>tr>th, .header-fixed>tbody>tr>td {
+  display: block;
+}
+
+.header-fixed>tbody>tr:after, .header-fixed>thead>tr:after {
+  content: ' ';
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+.header-fixed>thead>th {
+  height: 80px;
+}
+
+.header-fixed>tbody {
+  overflow-y: auto;
+  height: 300px;
+}
+
+.header-fixed>tbody>tr>td, .header-fixed>thead>tr>th {
+  /*width: 33.3333%;*/
+  float: left;
+  width: auto;
+}
+
+.main-container {
+  margin-top: 120px;
+  background-color: white;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #42A948;
+  /* green */
+}
+
+.ng-invalid:not {
+  border-left: 5px solid #a94442;
+  /* red */
+}
+
+.side-form {
+  position: absolute;
+  z-index: auto;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  overflow: auto;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.selected {
+  background-color: #f1f1f1 !important;
+  color: white;
+}
+
+
+/*#CFD8DC*/
+
+.option {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  margin: .5em;
+  padding: .3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+}
+
+.option.selected:hover {
+  background-color: #BBD8DC !important;
+  color: white;
+}
+
+.option:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+  height: .2em;
+}
+
+
+/*crea un rectangulo para el label*/
+
+.select-style {
+  border: 1px solid #ccc;
+  width: 120px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+
+/*pone el combo dentro del label*/
+
+.select-style select {
+  padding: 5px 8px;
+  width: 130%;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+}
+
+
+/*quita la caja*/
+
+.select-style select:focus {
+  outline: none;
+}
+
+
+/*color label cursos*/
+
+.select-style:hover {
+  color: blue;
+}
+
+.select-style>option:hover {
+  color: yellow;
+  cursor: pointer;
+}
+
+.icono {
+  float: left;
+  margin-left: 12px;
+  margin-top: -45px;
+  position: absolute;
+  color: gray;
+  /*z-index: 2;*/
+  /*color: red;*/
+}
+
+#myInput {
+  /* Add a search icon to input */
+  /*background-image: url('/assets/img/iconSearch.png');*/
+  /*background-position: 1px 8px;
+ background-repeat: no-repeat;*/
+  width: 100%;
+  /*font-size: 12px;*/
+  padding: 12px 2px 12px 10px;
+  /*padding: 12px 20px 12px 40px;*/
+  /*border: 2px solid #ddd;*/
+  /*border-radius: 25px;*/
+  /*margin-bottom: 12px;*/
+  /* Position the search icon */
+  /* Do not repeat the icon image */
+  /* Full-width */
+  /* Increase font-size */
+  /* Add some padding */
+  /* Add a grey border */
+  /* Add some space below the input */
+}
+
+
+/* Animaciones */
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.fast {
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}

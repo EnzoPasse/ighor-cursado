@@ -1,0 +1,92 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <form #provinciaForm="ngForm" *ngIf="barrio">
+      <div class="modal-header">
+        <h4 class="modal-title">{{title}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body modal-body-scroller">
+
+        <div class="form-group">
+          <label class="col-form-label">
+             Provincia :
+          </label>
+          <br>
+          <i> {{barrio.cuadrante.localidad?.provincia?.nombre}} </i>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-form-label">
+            Localidad :
+          </label>
+          <br>
+          <i> {{barrio.cuadrante.localidad?.nombre}} </i>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-form-label">
+            Sector :
+          </label>
+          <br>
+          <i> {{barrio.cuadrante?.nombre}} </i>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-form-label" for="codigoPostal">
+            Codigo Postal:
+          </label>
+          <input type="text" class="form-control"
+                 name="codigoPostal" OnlyNumber="true"
+                 #codigoPostal="ngModel"
+                 placeholder="Codigo postal..."
+           [(ngModel)]="barrio.CodigoPostal"
+           required
+           pattern="[0-9]+">
+
+        </div>
+
+        <div class="form-group">
+          <label class="col-form-label" for="nombre">
+           Barrio :
+          </label>
+          <input type="text" class="form-control" #nombre="ngModel" name="nombre" placeholder="Nombre..." [(ngModel)]="barrio.nombre" required pattern=".{3,50}">
+        </div>
+
+        <div class="alert alert-danger" [hidden]="provinciaForm.form.valid || !provinciaForm.form.dirty">
+          <ul *ngIf="nombre.dirty && !nombre.valid">
+            <li *ngIf="nombre.errors?.required">El nombre es requerido</li>
+            <li *ngIf="nombre.errors?.pattern">La descripcion debe entre 3 y 25 caracteres</li>
+          </ul>
+          <ul *ngIf="codigoPostal.dirty && !codigoPostal.valid">
+            <li *ngIf="codigoPostal.errors?.required"> El Codigo Postal es requerido</li>
+          </ul>
+        </div>
+
+
+        <!-- <pre>{{barrio | json}}</pre> -->
+
+      </div>
+      <div class="modal-footer">
+
+        <button [disabled]="provinciaForm.invalid" type="submit" class="btn btn-outline-success" (click)="save(provinciaForm)">
+                <i class="fa fa-floppy-o fa-1x" aria-hidden="true"></i>
+                Guardar
+         </button>
+
+        <button type="submit" class="btn btn-outline-danger" (click)="hideChildModal()">
+          <i class="fa fa-reply fa-1x" aria-hidden="true"></i>
+            Cancelar
+       </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
